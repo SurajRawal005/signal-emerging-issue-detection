@@ -20,65 +20,103 @@ Signal automates this process:
 
 ```text
 Incident Reports
-       ↓
-Text Preprocessing
-       ↓
-TF-IDF
-       ↓
-Cosine Similarity
-       ↓
-Similarity Graph
-       ↓
-Connected Components
-       ↓
-Statistical Analysis
-       ↓
-Signal Scoring
-       ↓
-Severity Classification
-       ↓
-Evidence & Explanation
-       ↓
-Dashboard
 
-Key Features
+       ↓
+
+Text Preprocessing
+
+       ↓
+
+TF-IDF
+
+       ↓
+
+Cosine Similarity
+
+       ↓
+
+Similarity Graph
+
+       ↓
+
+Connected Components
+
+       ↓
+
+Statistical Analysis
+
+       ↓
+
+Signal Scoring
+
+       ↓
+
+Severity Classification
+
+       ↓
+
+Evidence & Explanation
+
+       ↓
+
+Dashboard
+```
+
+## Key Features
+
 🔎 Emerging Issue Detection
 
 Automatically groups related incident reports into issue clusters using:
 
 TF-IDF
+
 Cosine similarity
+
 Similarity graphs
+
 Connected-component clustering
+
 📊 Statistical Analysis
 
 Each detected cluster is evaluated using:
 
 Frequency
+
 Recent growth
+
 Historical baseline
+
 Z-score
+
 Reporter diversity
+
 Time concentration
+
 Location concentration
+
 🎯 Weighted Signal Scoring
 
 Signals are generated using a weighted scoring model:
 
-Metric	Weight
-Frequency	20%
-Growth	25%
-Historical baseline	20%
-Reporter diversity	15%
-Time concentration	10%
-Location concentration	10%
+| Metric | Weight |
+|---|---:|
+| Frequency | 20% |
+| Growth | 25% |
+| Historical baseline | 20% |
+| Reporter diversity | 15% |
+| Time concentration | 10% |
+| Location concentration | 10% |
 
 The resulting score is converted into:
 
 LOW
+
 MEDIUM
+
 HIGH
+
 CRITICAL
+
 🧠 Explainable Detection
 
 Signal does not simply produce a score.
@@ -86,60 +124,96 @@ Signal does not simply produce a score.
 It provides evidence explaining why an issue was detected, including:
 
 Related reports
+
 Growth compared with previous activity
+
 Number of unique reporters
+
 Time concentration
+
 Location concentration
+
 Historical baseline
+
 Contributing metrics
+
 🔐 Authentication & Authorization
 
 The backend includes:
 
 JWT authentication
+
 bcrypt password hashing
+
 Role-based access control
+
 ADMIN
+
 ANALYST
+
 REPORTER
+
 🧪 Testing
 
 The backend includes automated tests using:
 
 Jest
+
 Supertest
 
 The detection engine is tested for:
 
 Tokenization
+
 TF calculation
+
 IDF calculation
+
 TF-IDF
+
 Cosine similarity
+
 Similarity graph construction
+
 Connected components
+
 Cluster analysis
+
 API authentication behavior
-Architecture
+
+## Architecture
+
+```text
                          SIGNAL
+
                            │
+
                            ▼
+
                     ┌─────────────┐
-                    │   React     │
+                    │    React    │
                     │    Vite     │
                     │  Tailwind   │
                     └──────┬──────┘
+
                            │ REST API
+
                            ▼
+
                     ┌─────────────┐
                     │   Express   │
-                    │    Node.js  │
+                    │   Node.js   │
                     └──────┬──────┘
+
                            │
+
               ┌────────────┼────────────┐
               ▼            ▼            ▼
-         Authentication  Reports    Detection
+
+        Authentication  Reports    Detection
+
               │            │            │
+
               │            │            ├─ TF-IDF
               │            │            ├─ Cosine Similarity
               │            │            ├─ Graph Clustering
@@ -147,38 +221,72 @@ Architecture
               │            │            ├─ Growth Analysis
               │            │            ├─ Z-Score
               │            │            └─ Risk Scoring
+
               │            │
+
               └────────────┼────────────┘
+
                            ▼
+
                          MySQL
-Technology Stack
+```
+
+## Technology Stack
+
 Frontend
+
 React
+
 Vite
+
 Tailwind CSS
+
 React Router
+
 Axios
+
 Backend
+
 Node.js
+
 Express.js
+
 JWT
+
 bcrypt
+
 CORS
+
 Database
+
 MySQL
+
 Algorithms
+
 TF-IDF
+
 Cosine Similarity
+
 Graph-based clustering
+
 Connected Components
+
 Frequency Analysis
+
 Growth Analysis
+
 Z-Score
+
 Weighted Risk Scoring
+
 Testing
+
 Jest
+
 Supertest
-Detection Pipeline
+
+## Detection Pipeline
+
 1. Text Preprocessing
 
 Report title, description, and category are combined and normalized.
@@ -217,7 +325,7 @@ Multiple metrics are normalized and combined using the weighted scoring model.
 
 The system exposes the evidence behind the score so users can understand why a signal was generated.
 
-Example Signal
+## Example Signal
 
 A cluster such as:
 
@@ -228,9 +336,13 @@ may contain several related reports occurring within a short period.
 Signal evaluates:
 
 Reports              → 4
+
 Unique reporters     → 2
+
 Recent growth        → +200%
+
 Signal score         → 75.5
+
 Severity             → HIGH
 
 Instead of simply displaying:
@@ -239,25 +351,27 @@ HIGH
 
 Signal provides the underlying evidence that contributed to the classification.
 
-Screenshots
+## Screenshots
 
-Dashboard
+### Dashboard
 
 ![Signal Dashboard](docs/screenshots/dashboard.png)
 
-Signal reports
+### Signal reports
 
 ![Signal report](docs/screenshots/report.png)
 
-Authentication
+### Authentication
 
 ![Signal Login](docs/screenshots/login.png)
 
-Singal analysis
+### Signal analysis
 
 ![Signal analysis](docs/screenshots/signal.png)
 
-Project Structure
+## Project Structure
+
+```text
 Signal/
 │
 ├── client/
@@ -281,66 +395,101 @@ Signal/
 │   └── server.js
 │
 └── README.md
-API Overview
+```
+
+## API Overview
+
 Authentication
+
+```text
 POST /api/auth/register
 POST /api/auth/login
 GET  /api/auth/me
+```
+
 Reports
+
+```text
 POST   /api/reports
 GET    /api/reports
 GET    /api/reports/mine
 GET    /api/reports/:id
 PUT    /api/reports/:id
 DELETE /api/reports/:id
+```
+
 Detection
+
+```text
 GET /api/reports/analyze
-Testing
+```
+
+## Testing
 
 Run the backend tests:
 
+```bash
 cd server
 npm test
+```
 
 The current test suite covers the core detection algorithms and API authentication behavior.
 
-Running Locally
+## Running Locally
+
 Backend
+
+```bash
 cd server
 npm install
 npm run dev
+```
+
 Frontend
+
+```bash
 cd client
 npm install
 npm run dev
+```
 
 The frontend runs on:
 
-http://localhost:5173
+[http://localhost:5173](http://localhost:5173)
 
 The backend runs on:
 
-http://localhost:5000
-Why I Built Signal
+[http://localhost:5000](http://localhost:5000)
+
+## Why I Built Signal
 
 Signal was designed to demonstrate practical software engineering beyond CRUD applications.
 
 The project combines:
 
 Full-stack development
+
 REST API design
+
 Authentication
+
 RBAC
+
 SQL database design
+
 Data structures and algorithms
+
 Statistical analysis
+
 Graph algorithms
+
 Automated testing
+
 Explainable decision systems
 
 The goal was to build a system where the reasoning behind a detected issue is visible rather than hidden behind a black-box model.
 
-Project Status
+## Project Status
 
 Signal V1.0 — Feature Complete
 
@@ -349,11 +498,17 @@ The initial version is frozen.
 Future improvements may include:
 
 Advanced analytics
-Advanced signal section 
+
+Advanced signal section
+
 Additional detection strategies
+
 Production infrastructure improvements
+
 More sophisticated visualization
+
 Larger-scale performance optimization
 
 ## Author
+
 **Suraj Singh Rawal**
